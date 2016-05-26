@@ -5,7 +5,7 @@ class Hand:
 
     def __init__(self):
         self.cards = []
-        self.total = 0
+        self.card_total = 0
         self.game_deck = Deck().deck
 
     def hand_value(self):
