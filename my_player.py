@@ -1,15 +1,18 @@
 
 
 class Player:
-    # talks to the hand
     def __init__(self):
-        self.cards = []
+        # gets cards from hand
+        pass
 
     def hit(self):
+        # move card from deck to my_hand
         pass
 
     def hold(self):
+        # end turn
         pass
 
     def show_cards(self):
+        # card visibility?
         pass

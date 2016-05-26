@@ -10,5 +10,20 @@ class Deck:
         random.shuffle(self.deck)
         # print(self.deck)
 
-
+"""
 game_deck = Deck()
+
+# get cards from deck to hand - deal?
+hand = [game_deck.deck.pop() for _ in range(2)]
+print(hand)
+
+# get another card
+while True:
+    if input("Draw? Y/n ").lower() != "n":
+        hand.append(game_deck.deck.pop())
+    else:
+        break
+    print(hand)
+
+
+"""

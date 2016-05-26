@@ -10,6 +10,7 @@ def game():
     cards = my_cards.Card()
     dealer = my_dealer.Dealer()
     player = my_player.Player()
+    hand = my_hand.Hand()
 
     player.
 

@@ -6,8 +6,9 @@ class Dealer:
         pass
 
     def deal(self):
+        # distrubuit 2 cards to player and dealer
         pass
 
     def hit(self):
-        pass
+        # get another card from the deck
 
