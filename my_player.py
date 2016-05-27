@@ -9,7 +9,6 @@ class Player:
         self.game_deck = Deck().deck
 
     def hand_value(self):
-        print(self.hand)
         self.hand_total = 0
         for card in self.hand:
             if card[0] in "1JQK":
@@ -18,13 +17,15 @@ class Player:
                 self.hand_total += 11  # OR 1, somehow...
             else:
                 self.hand_total += int(card[0])
-            return self.hand_total
-            # print(self.hand_total)
-        print("Hand Value " + self.hand_value)
+        return self.hand_total
 
-        # go to calc the value of cards somehow.....
-        # return sum(self.cards) ?
-        pass
+    def win_bust(self):
+        if self.hand_value() > 21:
+            print("\n ** Bust! ** ")
+        elif self.hand_value() == 21:
+            print("\n *** Winner! *** ")
+        else:
+            pass
 
     def deal_cards(self):
         self.hand = [self.game_deck.pop() for _ in range(2)]
@@ -46,27 +47,38 @@ class Player:
 class Dealer(Player):
 
     def dealer_draw(self):
-        pass
-        # if hand_total <= 17:
-        #     super().draw()
-        # elif hand_total > 21:
-        #     print(Dealer Lost)
-        # else:
-        #     print(Dealer Wins)
+        print("Dealer: ")
+        print(self.hand)
+        print(super().hand_value())
+        while super().hand_value() <= 17:
+            super().draw()
+            print(self.hand)
+            print(super().hand_value())
+
+# dealer = Dealer()
+# dealer.deal_cards()
 
 
 class User(Player):
 
     def user_draw(self):
+        print("User: ")
         print(self.hand)
         print(super().hand_value())
-        if input("Draw? Y/n ").lower() != "n":
-            super().draw()
-        else:
-            pass
-        print(self.hand)
+        while super().hand_value() < 21:
+            if input("Draw? Y/n ").lower() != "n":
+                super().draw()
+            else:
+                break
+            print(self.hand)
+            print(super().hand_value())
 
 
 # test_user = User()
 # test_user.deal_cards()
 # test_user.user_draw()
+# test_user.win_bust()
+
+# dealer.dealer_draw()
+
+# dealer.win_bust()
