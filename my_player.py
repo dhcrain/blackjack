@@ -1,5 +1,5 @@
 from my_deck import Deck
-
+import os
 
 class Player:
 
@@ -7,6 +7,8 @@ class Player:
         self.hand = []
         self.hand_total = 0
         self.game_deck = Deck().deck
+        self.win = False
+        self.bust = False
 
     def hand_value(self):
         self.hand_total = 0
@@ -17,15 +19,20 @@ class Player:
                 self.hand_total += 11  # OR 1, somehow...
             else:
                 self.hand_total += int(card[0])
-        return self.hand_total
+        return int(self.hand_total)
 
     def win_bust(self):
         if self.hand_value() > 21:
-            print("\n ** Bust! ** ")
+            print("\n ** Bust! ** \n")
+            self.win = False
+            self.bust = True
         elif self.hand_value() == 21:
-            print("\n *** Winner! *** ")
+            print("\n *** Blackjack! *** \n")
+            self.win = True
+            self.bust = False
         else:
-            pass
+            print("Else: win_bust")
+            self.bust = True
 
     def deal_cards(self):
         self.hand = [self.game_deck.pop() for _ in range(2)]
@@ -48,12 +55,14 @@ class Dealer(Player):
 
     def dealer_draw(self):
         print("Dealer: ")
-        print(self.hand)
-        print(super().hand_value())
+        # print(self.hand)
+        # print(super().hand_value())
         while super().hand_value() <= 17:
             super().draw()
             print(self.hand)
-            print(super().hand_value())
+        print(super().hand_value())
+        super().win_bust()
+        return super().hand_value()
 
 # dealer = Dealer()
 # dealer.deal_cards()
@@ -62,6 +71,7 @@ class Dealer(Player):
 class User(Player):
 
     def user_draw(self):
+        # os.system("clear")
         print("User: ")
         print(self.hand)
         print(super().hand_value())
@@ -72,6 +82,8 @@ class User(Player):
                 break
             print(self.hand)
             print(super().hand_value())
+        super().win_bust()
+        return super().hand_value()
 
 
 # test_user = User()

@@ -11,17 +11,23 @@ class Game:
         self.blackjack = False
 
     def winner(self):
-        if self.dealer_hand_value > self.user_hand_value:
-            print("Dealer Wins!")
+        if dealer.hand_value() > user.hand_value():
+            if dealer.bust:
+                print("1You Win!")
+                exit()
+            print("2Dealer Wins!")
             exit()  # play again
-        elif self.dealer_hand_value < self.user_hand_value:
-            print("You Win!")
+        elif dealer.hand_value() < user.hand_value():
+            if user.bust:
+                print("3Dealer Wins!")
+                exit()
+            print("4You Win!")
             exit()
-        elif self.dealer_hand_value == 21 and self.user_hand_value == 21:
-            print("Tie, Dealer Wins!")
+        elif dealer.hand_value() == 21 and user.hand_value() == 21:
+            print("5Tie, Dealer Wins!")
             exit()
         else:
-            print("ELSE Both busted, sad")
+            print("6ELSE Both busted, sad")
             exit()
 """
     def win_bust(self):
@@ -39,12 +45,13 @@ dealer = Dealer()
 user = User()
 game = Game()
 
+
 user.deal_cards()
 user.user_draw()
 user.hand_value()
 # game.winner()
 
 dealer.dealer_draw()
-dealer.hand_value()
+# dealer.hand_value()
 
 game.winner()

@@ -8,8 +8,8 @@ class Hand:
         self.card_total = 0
         self.game_deck = Deck().deck
 
-    def hand_value(self):
-        return sum(self.cards)
+    # def hand_value(self):
+    #     return sum(self.cards)
 
     def deal_cards(self):
         self.cards = [self.game_deck.pop() for _ in range(2)]
