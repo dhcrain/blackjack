@@ -24,15 +24,12 @@ class Player:
     def win_bust(self):
         if self.hand_value() > 21:
             print("\n ** Bust! ** \n")
-            self.win = False
             self.bust = True
         elif self.hand_value() == 21:
             print("\n *** Blackjack! *** \n")
             self.win = True
-            self.bust = False
         else:
             print("Else: win_bust")
-            self.bust = True
 
     def deal_cards(self):
         self.hand = [self.game_deck.pop() for _ in range(2)]
