@@ -1,5 +1,5 @@
 from my_deck import Deck
-import os
+import time
 
 class Player:
 
@@ -16,7 +16,10 @@ class Player:
             if card[0] in "1JQK":
                 self.hand_total += 10
             elif card[0] is "A":
-                self.hand_total += 11  # OR 1, somehow...
+                if self.hand_total + 11 <= 21:
+                    self.hand_total += 11
+                elif self.hand_total > 21:
+                    self.hand_total += 1
             else:
                 self.hand_total += int(card[0])
         return int(self.hand_total)
@@ -28,8 +31,8 @@ class Player:
         elif self.hand_value() == 21:
             print("\n *** Blackjack! *** \n")
             self.win = True
-        else:
-            print("Else: win_bust")
+        # else:
+        #     print("Else: win_bust")
 
     def deal_cards(self):
         self.hand = [self.game_deck.pop() for _ in range(2)]
@@ -51,13 +54,16 @@ class Player:
 class Dealer(Player):
 
     def dealer_draw(self):
-        print("Dealer: ")
+        # print("\nDealer Draws: ", end="")
+        # super().deal_cards()
+        # print(self.hand)
         # print(self.hand)
         # print(super().hand_value())
         while super().hand_value() <= 17:
             super().draw()
-            print(self.hand)
-        print(super().hand_value())
+            time.sleep(.1)
+            print("Dealer Draws: ", " ".join(self.hand))
+        # print(super().hand_value())
         super().win_bust()
         return super().hand_value()
 
@@ -67,18 +73,24 @@ class Dealer(Player):
 
 class User(Player):
 
+    # def __init__(self):
+    #     super().__init__()
+
     def user_draw(self):
         # os.system("clear")
-        print("User: ")
-        print(self.hand)
-        print(super().hand_value())
+        # super().deal_cards()
+        # print("User: ")
+        # print(self.hand)
+        # print(super().hand_value())
         while super().hand_value() < 21:
-            if input("Draw? Y/n ").lower() != "n":
+            if input("Hit or Stand? H/s ").lower() != "s":
+                print("Your new cards: ", end="")
                 super().draw()
             else:
+                print(" ")
                 break
-            print(self.hand)
-            print(super().hand_value())
+            print(" ".join(self.hand))
+            # print(super().hand_value())
         super().win_bust()
         return super().hand_value()
 
