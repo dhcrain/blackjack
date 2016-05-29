@@ -1,4 +1,3 @@
-from my_player import Player
 from my_player import Dealer
 from my_player import User
 import os
@@ -12,18 +11,16 @@ class Game:
         self.user_hand_value = User().hand_value()
 
     def play_blackjack(self):
-        dealer = Dealer()
-        user = User()
         os.system("clear")
-        print("\n    -*-*- Blackjack -*-*-\n\n"
-              "Closest to 21 without going over, \n"
-              "Dealer stands on 17\n")
+        print("\n      -*-*- Blackjack -*-*-   \n\n"
+              "Closest to 21 without going over\n"
+              "Dealer stands on 17\n"
+              "----------------------------")
         print("Dealer: ", end="")
         dealer.deal_cards()
         print(" ".join(dealer.hand))
-        print("\nYour Cards")
+        print("\nYour Cards ", end="")
         user.deal_cards()
-        # print(User.hand_value())
         print(" ".join(user.hand))
         user.user_draw()
         user.hand_value()
@@ -47,8 +44,11 @@ class Game:
                 print(self.dealer_win)
                 game.play_again()
             print(self.you_win)
-        elif dealer.win and user.win or dealer.hand_value() == user.hand_value():
-            print(" * Both have Blackjack, Dealer Wins! *")
+        elif dealer.hand_value() == user.hand_value():
+            if dealer.win and user.win:
+                print(" * Both have Blackjack, Dealer Wins! *")
+            else:
+                print("Push, tie, keep your money.")
         elif dealer.win and not user.win:
             print(" * Dealer Wins! *")
         else:
@@ -65,4 +65,6 @@ class Game:
             exit()
 
 game = Game()
+dealer = Dealer()
+user = User()
 game.play_blackjack()

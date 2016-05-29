@@ -1,6 +1,7 @@
 from my_deck import Deck
 import time
 
+
 class Player:
 
     def __init__(self):
@@ -31,57 +32,28 @@ class Player:
         elif self.hand_value() == 21:
             print("\n *** Blackjack! *** \n")
             self.win = True
-        # else:
-        #     print("Else: win_bust")
 
     def deal_cards(self):
         self.hand = [self.game_deck.pop() for _ in range(2)]
-        # print(self.hand)
 
     def draw(self):
         self.hand.append(self.game_deck.pop())
-
-    def show_cards(self):
-        # card visibility?
-        pass
-
-# test_player = Player()
-# test_player.deal_cards()
-# test_player.draw()
-# test_player.hand_value()
 
 
 class Dealer(Player):
 
     def dealer_draw(self):
-        # print("\nDealer Draws: ", end="")
-        # super().deal_cards()
-        # print(self.hand)
-        # print(self.hand)
-        # print(super().hand_value())
         while super().hand_value() <= 17:
             super().draw()
             time.sleep(.1)
             print("Dealer Draws: ", " ".join(self.hand))
-        # print(super().hand_value())
         super().win_bust()
         return super().hand_value()
-
-# dealer = Dealer()
-# dealer.deal_cards()
 
 
 class User(Player):
 
-    # def __init__(self):
-    #     super().__init__()
-
     def user_draw(self):
-        # os.system("clear")
-        # super().deal_cards()
-        # print("User: ")
-        # print(self.hand)
-        # print(super().hand_value())
         while super().hand_value() < 21:
             if input("Hit or Stand? H/s ").lower() != "s":
                 print("Your new cards: ", end="")
@@ -90,16 +62,5 @@ class User(Player):
                 print(" ")
                 break
             print(" ".join(self.hand))
-            # print(super().hand_value())
         super().win_bust()
         return super().hand_value()
-
-
-# test_user = User()
-# test_user.deal_cards()
-# test_user.user_draw()
-# test_user.win_bust()
-
-# dealer.dealer_draw()
-
-# dealer.win_bust()
