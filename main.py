@@ -15,50 +15,53 @@ class Game:
         print("\n      -*-*- Blackjack -*-*-   \n\n"
               "Closest to 21 without going over\n"
               "Dealer stands on 17\n"
-              "----------------------------")
-        print("Dealer: ", end="")
+              "--------------------------------\n")
         dealer.deal_cards()
-        print(" ".join(dealer.hand))
-        print("\nYour Cards ", end="")
+        print("Dealer's Cards: ", end="")
+        print(dealer.hand[0], "| ##")
+        print("\nYour Cards:     ", end="")
         user.deal_cards()
-        print(" ".join(user.hand))
+        print(" | ".join(user.hand))
         user.user_draw()
-        user.hand_value()
+        print("Dealers Hand: ", " | ".join(dealer.hand))
         dealer.dealer_draw()
         print("\nDealer has {}, and you have {}.\n".format(dealer.hand_value(), user.hand_value()))
         game.winner()
 
     def winner(self):
-        self.you_win = " *** You Win! ***\n"
-        self.dealer_win = " * Dealer Wins! *\n"
-        if user.bust and dealer.bust:
+        you_win = " *** You Win! ***\n"
+        dealer_win = " * Dealer Wins! *\n"
+        if user.hand_value() >= 22 and dealer.hand_value() >= 22:
             print("Both busted, Dealer wins")
+        elif dealer.win and not user.win:
+            print(dealer_win)
         elif dealer.hand_value() > user.hand_value():
-            if dealer.bust and not user.bust:
-                print(self.you_win)
+            if dealer.hand_value() >= 22:
+                print(you_win)
                 game.play_again()
-            print(self.dealer_win)
+            if user.hand_value() >= 22:
+                print(dealer_win)
+            print(dealer_win)
             game.play_again()
         elif dealer.hand_value() < user.hand_value():
-            if user.bust:
-                print(self.dealer_win)
+            if user.hand_value() >= 22:
+                print(dealer_win)
                 game.play_again()
-            print(self.you_win)
+            print(you_win)
         elif dealer.hand_value() == user.hand_value():
             if dealer.win and user.win:
                 print(" * Both have Blackjack, Dealer Wins! *")
             else:
                 print("Push, tie, keep your money.")
-        elif dealer.win and not user.win:
-            print(" * Dealer Wins! *")
         else:
-            print("That was an odd hand!?!?")
+            print("Well, that was an odd hand!?!?")
         game.play_again()
 
     def play_again(self):
         if input("\nPlay Again? Y/n ").lower() != "n":
-            print("Shuffling........")
-            time.sleep(.5)
+            for num in range(20):
+                print("Shuffling........")
+                time.sleep(.02)
             game.play_blackjack()
         else:
             print("\nThanks for playing Blackjack")

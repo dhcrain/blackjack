@@ -9,7 +9,6 @@ class Player:
         self.hand_total = 0
         self.game_deck = Deck().deck
         self.win = False
-        self.bust = False
 
     def hand_value(self):
         self.hand_total = 0
@@ -26,9 +25,9 @@ class Player:
         return int(self.hand_total)
 
     def win_bust(self):
-        if self.hand_value() > 21:
+        if self.hand_value() >= 22:
             print("\n ** Bust! ** \n")
-            self.bust = True
+            self.win = False
         elif self.hand_value() == 21:
             print("\n *** Blackjack! *** \n")
             self.win = True
@@ -45,8 +44,8 @@ class Dealer(Player):
     def dealer_draw(self):
         while super().hand_value() <= 17:
             super().draw()
-            time.sleep(.1)
-            print("Dealer Draws: ", " ".join(self.hand))
+            time.sleep(.25)
+            print("Dealer Draws: ", " | ".join(self.hand))
         super().win_bust()
         return super().hand_value()
 
@@ -61,6 +60,6 @@ class User(Player):
             else:
                 print(" ")
                 break
-            print(" ".join(self.hand))
+            print(" | ".join(self.hand))
         super().win_bust()
         return super().hand_value()
