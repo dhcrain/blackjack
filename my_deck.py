@@ -8,3 +8,6 @@ class Deck:
         self.card_suit = ["♥", "♦", "♠", "♣"]
         self.deck = [(num + " " + suit) for num in self.card_numbers for suit in self.card_suit]
         random.shuffle(self.deck)
+
+# deck = Deck()
+# print(deck.deck)

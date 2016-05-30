@@ -7,8 +7,7 @@ import time
 class Game:
 
     def __init__(self):
-        self.dealer_hand_value = Dealer().hand_value()
-        self.user_hand_value = User().hand_value()
+        pass
 
     def play_blackjack(self):
         os.system("clear")
@@ -67,7 +66,7 @@ class Game:
             print("\nThanks for playing Blackjack")
             exit()
 
-game = Game()
 dealer = Dealer()
 user = User()
+game = Game()
 game.play_blackjack()

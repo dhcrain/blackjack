@@ -10,6 +10,12 @@ class Player:
         self.game_deck = Deck().deck
         self.win = False
 
+    # def ace_reorder(self):  # Cant get this to work as method/function
+    #     for index, card in enumerate(self.hand):
+    #         if card[0] is "A":
+    #             self.hand += [self.hand.pop(index)]
+    #             return self.hand
+
     def hand_value(self):
         self.hand_total = 0
         for card in self.hand:
@@ -27,7 +33,6 @@ class Player:
     def win_bust(self):
         if self.hand_value() >= 22:
             print("\n ** Bust! ** \n")
-            self.win = False
         elif self.hand_value() == 21:
             print("\n *** Blackjack! *** \n")
             self.win = True
@@ -37,6 +42,11 @@ class Player:
 
     def draw(self):
         self.hand.append(self.game_deck.pop())
+        # sends Aces to the back of the hand list
+        # so that the value can be better calculated
+        for index, card in enumerate(self.hand):
+            if card[0] is "A":
+                self.hand += [self.hand.pop(index)]
 
 
 class Dealer(Player):
