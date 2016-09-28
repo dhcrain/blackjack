@@ -119,7 +119,7 @@ class Game:
     def dealer_draw(self):
         while self.hand_value(self.dealer.show_hand()) < 17:
             self.give_card(self.dealer)
-            time.sleep(.25)
+            time.sleep(.35)
             print("Dealer Draws: ", " | ".join(self.dealer.show_hand()))
         self.win_bust(self.dealer.show_hand())
 
